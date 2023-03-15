@@ -1,2 +1,28 @@
-GET http://localhost:2000/movie HTTP/1.1
+GET http://localhost:2000/product HTTP/1.1
 Content-Type:  application/json
+
+###
+POST http://localhost:2000/products HTTP/1.1
+Content-Type:  application/json
+
+{
+    "image": "TEST asda",
+    "name": "Mac book",
+    "stock": 9,
+    "price": 2200,
+    "sale": 10,
+    "id": "10284780909dacvaSDVGAWR;KGA'EWRBN0"
+  }
+
+
+###
+DELETE  http://localhost:2000/products HTTP/1.1
+Content-Type:  application/json
+
+{"image": "TEST asda"}
+
+###
+PUT http://localhost:2000/products HTTP/1.1
+Content-Type:  application/json
+
+{"id": "102847809090"}

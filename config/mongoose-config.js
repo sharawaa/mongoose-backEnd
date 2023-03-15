@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 mongoose
   .connect(
-    "mongodb+srv://sharawnyambuu:Amjilt%402023@sharavaa.a8vvi2r.mongodb.net/sample_mflix"
+    "mongodb+srv://sharawnyambuu:Amjilt%402023@sharavaa.a8vvi2r.mongodb.net/E-Commerce"
   )
   .then((res) => {
     console.log("connect");
