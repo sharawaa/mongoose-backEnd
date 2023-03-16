@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import "./config/mongoose-config.js";
-import Router from "./routes/product-routes.js";
+import Router from "./routes/product-api.js";
 const app = express();
 const port = 2000;
 app.use(express.json());
