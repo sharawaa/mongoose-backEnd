@@ -13,3 +13,4 @@ export async function addProduct(product) {
 export async function deleteProduct(id) {
   return await myModel.deleteOne({id:id});
 }
+//
