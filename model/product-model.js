@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const schema = new mongoose.Schema({
+const schema = new mongoose.Schema(
+  {
     name: String,
     image: String,
     stock: Number,
@@ -8,9 +9,10 @@ const schema = new mongoose.Schema({
     sale: Number,
     id: String,
     spec: Array,
-    description: String
+    description: String,
+  },
+  { collection: "products" }
+);
 
-}, { collection: "products" });
-
-const myModel = mongoose.model("myModel", schema, "products");
-export default myModel;
+const productModel = mongoose.model("myModel", schema, "products");
+export default productModel;
