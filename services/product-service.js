@@ -1,8 +1,6 @@
 import productModel from "../model/product-model.js";
 
 export async function addProduct(product) {
-  // const image = await addImage();
-  // console.log("tset", image);
   const result = await productModel.create({
     ...product,
   });
