@@ -14,27 +14,6 @@ Router.get("/product", async (req, res) => {
   res.status(200).send(result);
 });
 //product post
-Router.post("/products", async (req, res) => {
-  const result = await addProduct(req.body);
-  console.log("body", req.body);
-  res.status(200).send(result);
-});
-
-// const res = cloudinary.v2.uploader.upload(
-//   "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-//   { public_id: "olympic_flag" }
-// );
-
-// res
-//   .then((data) => {
-//     console.log(data);
-//     console.log(data.secure_url);
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -55,27 +34,30 @@ const extractExtension = (name) => {
 
 const upload = multer({ storage: storage });
 
-Router.post("/file", upload.single("file"), async (req, res) => {
-  //console.log("req.file.path:", req.files.recfile.path);
-  const responsive = cloudinary.v2.uploader.upload(`${req.file.path}`, {
+// Router.post("/products", async (req, res) => {
+//   // const result = await addProduct(req.body);
+//   const data = await req.body;
+
+// });
+
+Router.post("/product", upload.single("file"), async (req, res) => {
+  let product = JSON.parse(req.body.product);
+  const responsive = await cloudinary.v2.uploader.upload(`${req.file.path}`, {
     folder: `${req.file.filename}`,
   });
-  responsive
-      .then((data) => {
-        console.log(data);
-        console.log(data.secure_url);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  product = await { ...product, image: responsive?.secure_url };
+  const result = await addProduct(product);
+
+  res.status(200).send(result);
+  console.log("response", responsive);
 });
 
 //product delete
-// Router.delete("/products/:id", async (req, res) => {
-//   const result = await deleteProduct(req.params.id);
-//   console.log("ustgah", req.params.id);
-//   res.status(200).send(result);
-// });
+Router.delete("/products/:id", async (req, res) => {
+  const result = await deleteProduct(req.params.id);
+  console.log("ustgah", req.params.id);
+  res.status(200).send(result);
+});
 //product put
 // Router.put("/products", async (req, res) => {
 //   const upProduct = req.body;

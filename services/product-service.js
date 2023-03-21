@@ -1,13 +1,12 @@
 import productModel from "../model/product-model.js";
 
 export async function addProduct(product) {
-  return await productModel.create({
-    name: product.name,
-    image: product.image,
-    stock: product.stock,
-    sale: product.sale,
-    category: product.category,
+  // const image = await addImage();
+  // console.log("tset", image);
+  const result = await productModel.create({
+    ...product,
   });
+  return result;
 }
 
 export async function deleteProduct(id) {

@@ -10,6 +10,7 @@ const schema = new mongoose.Schema(
     id: String,
     spec: Array,
     description: String,
+    category: String,
   },
   { collection: "products" }
 );
