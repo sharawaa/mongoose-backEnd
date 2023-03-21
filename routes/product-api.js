@@ -1,9 +1,9 @@
 import express from "express";
 import cloudinary from "../config/cloudinary.js";
-//import cloudinary from "../config/cloudinary.js";
 import productModel from "../model/product-model.js";
 import { addProduct, deleteProduct } from "../services/product-service.js";
 import multer from "multer";
+import { nanoid } from "nanoid";
 
 const Router = express.Router();
 
@@ -33,10 +33,14 @@ Router.post("/products", async (req, res) => {
 //   .catch((err) => {
 //     console.log(err);
 //   });
+
+
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "/tmp");
   },
+
   filename: (req, file, cb) => {
     const ext = extractExtension(file.originalname);
     console.log("ext: ", ext);
@@ -52,23 +56,34 @@ const extractExtension = (name) => {
 const upload = multer({ storage: storage });
 
 Router.post("/file", upload.single("file"), async (req, res) => {
-  console.log("file", req.file);
+  //console.log("req.file.path:", req.files.recfile.path);
+  const responsive = cloudinary.v2.uploader.upload(`${req.file.path}`, {
+    folder: `${req.file.filename}`,
+  });
+  responsive
+      .then((data) => {
+        console.log(data);
+        console.log(data.secure_url);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 });
 
 //product delete
-Router.delete("/products/:id", async (req, res) => {
-  const result = await deleteProduct(req.params.id);
-  console.log("ustgah", req.params.id);
-  res.status(200).send(result);
-});
+// Router.delete("/products/:id", async (req, res) => {
+//   const result = await deleteProduct(req.params.id);
+//   console.log("ustgah", req.params.id);
+//   res.status(200).send(result);
+// });
 //product put
-Router.put("/products", async (req, res) => {
-  const upProduct = req.body;
-  const result = await productModel.updateOne(upProduct, {
-    $set: { name: "uurchluluuu" },
-  });
-  console.log(req.body);
-  res.status(200).send(result);
-});
+// Router.put("/products", async (req, res) => {
+//   const upProduct = req.body;
+//   const result = await productModel.updateOne(upProduct, {
+//     $set: { name: "uurchluluuu" },
+//   });
+//   console.log(req.body);
+//   res.status(200).send(result);
+// });
 
 export default Router;
