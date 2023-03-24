@@ -2,6 +2,7 @@ import express from "express";
 import userModel from "../model/user-model.js";
 import { addUser } from "../services/user-service.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userRouter = express.Router();
 
@@ -31,13 +32,11 @@ userRouter.post("/loginHandler", async (req, res) => {
       });
       return;
     }
-    const user = await userModel.find({ userName: user.userName });
-    if (user && (await bcrypt.compare(password, user.password))) {
-      const token = jwt.sign(
-        { user_id: user._id, email },
-        "mysuperduperprivatekey",
-        { expiresIn: "24h" }
-      );
+    const user = await userModel.findOne({ userName: userName });
+    if (user && bcrypt.compare(user.password, userPassword)) {
+      const token = jwt.sign({ user_id: user._id }, "mysuperduperprivatekey", {
+        expiresIn: "24h",
+      });
       res.status(200).json({
         success: true,
         status: "amjilttai nevterlee",
