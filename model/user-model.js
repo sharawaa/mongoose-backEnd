@@ -8,6 +8,7 @@ const schema = new mongoose.Schema(
     sureName: String,
     role: String,
     password: String,
+    orderProduct: Array,
   },
   { collection: "users" }
 );
