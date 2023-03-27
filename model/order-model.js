@@ -6,6 +6,7 @@ const schema = new mongoose.Schema(
     phone: String,
     userId: String,
     date: String,
+    order: [],
   },
   { collection: "orders" }
 );
