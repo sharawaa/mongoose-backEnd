@@ -11,18 +11,6 @@ userRouter.get("/users", async (req, res) => {
   res.status(200).send(result);
 });
 
-// userRouter.post("/loginHandler", async (req, res) => {
-//   const user = req.body;
-
-//   const result = await userModel.find({
-//     $and: [
-//       { password: user.userPassword },
-//       { $or: [{ userName: user.userName }, { phone: user.userName }] },
-//     ],
-//   });
-//   res.status(200).send(result);
-// });
-
 userRouter.post("/loginHandler", async (req, res) => {
   try {
     const { userName, userPassword } = req.body;
