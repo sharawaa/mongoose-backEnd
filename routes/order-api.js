@@ -15,21 +15,20 @@ orderRouter.post("/order", async (req, res) => {
   res.status(200).send(result);
 });
 
-orderRouter.post("/profileOrder", async(req, res)=>{
-  try{
-    const userId = req.body.userId
-    const order= await orderModel.findOne({userId:userId})
+orderRouter.post("/profileOrder", async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const order = await orderModel.findOne({ userId: userId });
 
-    const orderProducts = order.orderProducts
+    const orderProducts = order.orderProducts;
 
-   const product = await productModel.find({_id:orderProducts[0]._id})
-   console.log("product",orderProducts[0]._id);
-    
-   res.status(200).json({product:product,stock:orderProducts[0].stock})
+    const product = await productModel.find({ _id: orderProducts[0]._id });
+    console.log("product", orderProducts);
 
-  }catch(err){console.log("zahialga oldsongui")}
-  
-})
-
+    res.status(200).json({ product: product, stock: orderProducts[0].stock });
+  } catch (err) {
+    console.log("zahialga oldsongui");
+  }
+});
 
 export default orderRouter;
