@@ -10,3 +10,9 @@ export async function addProduct(product) {
 export async function deleteProduct(id) {
   return await productModel.deleteMany({ _id: id });
 }
+
+export async function searchProduct(params){
+  return await productModel.find({name: {$regex: params.val}})
+
+  console.log(params.val);
+}

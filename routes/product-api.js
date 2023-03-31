@@ -1,7 +1,7 @@
 import express from "express";
 import cloudinary from "../config/cloudinary.js";
 import productModel from "../model/product-model.js";
-import { addProduct, deleteProduct } from "../services/product-service.js";
+import { addProduct, deleteProduct, searchProduct } from "../services/product-service.js";
 import upload from "../util/multer-handler.js";
 
 const Router = express.Router();
@@ -32,6 +32,23 @@ Router.delete("/products/:id", async (req, res) => {
   console.log("ustgah", req.params.id);
   res.status(200).send(result);
 });
+
+
+//product search 
+Router.post("/search",async (req, res)=>{
+  const params = req.body
+  const result = await searchProduct(params)
+  res.status(200).send(result)
+})
+
+
+
+  // let dat = products.filter((product) =>
+  //  product.name.toLowerCase().includes(test.product.toLowerCase())
+  //  );
+
+
+
 //product put
 // Router.put("/products", async (req, res) => {
 //   const upProduct = req.body;
