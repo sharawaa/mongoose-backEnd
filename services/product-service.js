@@ -13,6 +13,5 @@ export async function deleteProduct(id) {
 
 export async function searchProduct(params){
   return await productModel.find({name: {$regex: params.val}})
-
-  console.log(params.val);
+  
 }
